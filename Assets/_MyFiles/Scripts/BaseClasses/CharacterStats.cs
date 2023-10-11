@@ -16,7 +16,7 @@ public class CharacterStats : MonoBehaviour
             EStatType type = (EStatType)i;
             Stat newStat = new Stat();
             if (type == EStatType.Health ||  type == EStatType.MaxHealth 
-                || type == EStatType.Mana || type == EStatType.MaxMana)
+             || type == EStatType.Mana   ||  type == EStatType.MaxMana)
             {
                 newStat.SetBaseValue(100);
             }
