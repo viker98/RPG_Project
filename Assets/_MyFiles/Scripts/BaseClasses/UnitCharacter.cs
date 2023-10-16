@@ -12,6 +12,7 @@ public class UnitCharacter : MonoBehaviour
         CharacterStatsProfile = gameObject.AddComponent<CharacterStats>();
     }
 
+    public EUnitType GetUnitType() { return UnitType; }
     public CharacterStats GetCharacterStats() { return CharacterStatsProfile; }
     public int GetDiceNumber() { return DiceNumber; }
     public void SetDiceNumber(int valueToSet) { DiceNumber = valueToSet; }

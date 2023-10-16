@@ -9,7 +9,8 @@ public class PlayerDetection : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         BringIntoBattle bringIntoBattle = GetComponent<BringIntoBattle>();
-        if (other.CompareTag(EUnitType.Player.ToString()) && bringIntoBattle)
+        UnitCharacter character = other.GetComponent<UnitCharacter>();
+        if (character && bringIntoBattle && character.GetUnitType() == EUnitType.Player)
         {
             Debug.Log("Detected Player...");
             GameManager.m_Instance.CreateBattleManager(bringIntoBattle.GetEnemyPartnerList());
