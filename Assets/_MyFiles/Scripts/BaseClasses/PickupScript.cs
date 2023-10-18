@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NewBehaviourScript : MonoBehaviour
 {
-    public Item m_itemProfile;
+    [SerializeField] private Item ItemProfile;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,9 +13,10 @@ public class NewBehaviourScript : MonoBehaviour
         if (character && character.GetUnitType() == EUnitType.Player)
         {
             Debug.Log("Item Get!");
-            //add item to inventory
-
-            Destroy(this.gameObject);
+            if (other.GetComponent<UnitCharacter>().GetInventory().AddItem(ItemProfile))
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

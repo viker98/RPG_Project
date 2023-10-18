@@ -9,10 +9,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject PlayerPrefab;
     [SerializeField] UnitCharacter playerUnit;
     [SerializeField] Transform playerSpawn;
+    [SerializeField] GameObject InventorySlotUI;
 
     private GameObject Player;
     [SerializeField] private PartyManager Party;
     [SerializeField] private BattleManager CurrentBattle;
+    [SerializeField] private InventoryUIManager InventoryUI;
 
     bool bDebugToggle = false;
     private void Awake()
@@ -35,11 +37,17 @@ public class GameManager : MonoBehaviour
             GameObject playerGRP = Instantiate(PlayerPrefab, playerSpawn.transform.position, playerSpawn.transform.rotation);
             Player = playerGRP.GetComponentInChildren<UnitCharacter>().gameObject;
             CreatePartyManager();
+            CreateInventoryUIManager();
+            LoadData();
         }
         else
         {
             Debug.LogWarning("Player or Player Spawn Not Found");
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
     }
     private void Update()
     {
@@ -74,6 +82,20 @@ public class GameManager : MonoBehaviour
         int diceRoll = Random.Range(1, 20 + 1);
         return diceRoll;
     }
+
+    public void CreateInventoryUIManager()
+    {
+        if(InventoryUI) { return; }
+
+        InventoryUI = gameObject.AddComponent<InventoryUIManager>();
+    }
+    public void DestoryInventoryUIManager()
+    {
+        Destroy(InventoryUI);
+        InventoryUI = null;
+    }
+    public InventoryUIManager GetInventoryUIManager() { return InventoryUI; }
+
 
     public void CreatePartyManager()
     {
@@ -116,8 +138,11 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Loading Data...");
         string filepath = Application.persistentDataPath + "/PlayerData.json";
-        string playerData = System.IO.File.ReadAllText(filepath);
-        JsonUtility.FromJsonOverwrite(playerData, Player.GetComponent<UnitCharacter>().GetCharacterStats());
-        Debug.Log("Load Complete!");
+        if (System.IO.File.Exists(filepath))
+        {
+            string playerData = System.IO.File.ReadAllText(filepath);
+            JsonUtility.FromJsonOverwrite(playerData, Player.GetComponent<UnitCharacter>().GetCharacterStats());
+            Debug.Log("Load Complete!");
+        }
     }
 }
