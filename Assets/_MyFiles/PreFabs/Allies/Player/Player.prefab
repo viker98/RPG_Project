@@ -1345,6 +1345,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitType: 0
   DiceNumber: 0
+  CharacterInventory: {fileID: 0}
 --- !u!1 &4582489505106889155
 GameObject:
   m_ObjectHideFlags: 0
