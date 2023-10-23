@@ -8,10 +8,12 @@ public class UnitCharacter : MonoBehaviour
     [SerializeField] private EUnitType UnitType;
     [SerializeField] private int DiceNumber;
     [SerializeField] private Inventory CharacterInventory;
+    [SerializeField] private CharacterEquipment CharacterEquipment;
     private void Awake()
     {
         CharacterStatsProfile = gameObject.AddComponent<CharacterStats>();
         CharacterInventory = gameObject.AddComponent<Inventory>();
+        CharacterEquipment = gameObject.AddComponent<CharacterEquipment>();
         CharacterInventory.SetInventorySpace(15);
     }
 
@@ -25,5 +27,7 @@ public class UnitCharacter : MonoBehaviour
         CharacterInventory.GetItemList().Clear();
         CharacterInventory.GetItemList().AddRange(itemsToSet);
     }
+    public CharacterEquipment GetEquipment() { return CharacterEquipment; }
 }
+
 public enum EUnitType {Player, Partner, Enemy, NPC}

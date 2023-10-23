@@ -28,4 +28,9 @@ public class ItemSlot : MonoBehaviour
         UnitCharacter unit = GameManager.m_Instance.GetPlayer().GetComponent<UnitCharacter>();
         unit.GetInventory().RemoveItem(ItemProfile);
     }
+
+    public void UseItem()
+    {
+        if (ItemProfile != null) { ItemProfile.Use(); }
+    }
 }

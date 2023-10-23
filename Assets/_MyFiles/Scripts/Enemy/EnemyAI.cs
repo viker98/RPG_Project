@@ -16,6 +16,17 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
+        /*    GameObject playerHolder = GameManager.m_Instance.GetPlayer();
+            if (playerHolder != null)
+            {
+                targetPos = playerHolder.transform;
+            }
+            else
+            {
+                Debug.LogError("Plyaer not Found!");
+            }
+        */
+        StartCoroutine(FindPlayer());
         if (Waypoints.Length <= 0)
         {
             Debug.LogError("NO waypoints found");
@@ -30,15 +41,6 @@ public class EnemyAI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject playerHolder = GameManager.m_Instance.GetPlayer();
-        if (playerHolder != null)
-        {
-            targetPos = playerHolder.transform;
-        }
-        else
-        {
-            Debug.LogError("Plyaer not Found!");
-        }
         Vector3 curMove = transform.position - prevPosition;
         curSpeed = curMove.magnitude / Time.deltaTime;
         prevPosition = transform.position;
@@ -71,5 +73,18 @@ public class EnemyAI : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, FollowRange);
+    }
+    private IEnumerator FindPlayer()
+    {
+        yield return new WaitForEndOfFrame();
+        GameObject playerHolder = GameManager.m_Instance.GetPlayer();
+        if (playerHolder != null)
+        {
+            targetPos = playerHolder.transform;
+        }
+        else
+        {
+            Debug.LogError("Plyaer not Found!");
+        }
     }
 }
