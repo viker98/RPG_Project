@@ -14,6 +14,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private float TransitionTime = .5f;
     private List<GameObject> EnemyList = new List<GameObject>();
 
+    private BattleUIManager BattleUI;
+
     public EBattleState GetBattleState() { return BattleState; }
     public void SetBattleState(EBattleState stateToSet) { BattleState = stateToSet; }
     public void InitializeBattle(List<GameObject> enemyBattleList)
@@ -22,6 +24,10 @@ public class BattleManager : MonoBehaviour
         {
             Debug.Log("Intizling Battle...");
             BattleStarted = true;
+
+            GameObject BattleUIClone = Instantiate(GameManager.m_Instance.GetBattleUI(), this.gameObject.transform, false);
+            BattleUI = BattleUIClone.GetComponent<BattleUIManager>();
+
             EnemyList.Clear();
             EnemyList.AddRange(enemyBattleList);
             GatherUnits();
@@ -33,10 +39,21 @@ public class BattleManager : MonoBehaviour
     }
     public IEnumerator BattleStart()
     {
+        Time.timeScale = 0.05f;
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;
+        yield return new WaitForSeconds(.1f);
+
         //battle Transistion
+        BattleUI.PlayTransition();
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = Time.timeScale;
+
         //move camera or load level
+        //spawn good guys and bad guys
+        BattleUI.SetActiveBattleStartPostP(false);
 
         yield return new WaitForSeconds(TransitionTime);
+        BattleUI.EndTransition();
 
         SetBattleState(EBattleState.ChooseTurn);
     }
@@ -67,6 +84,19 @@ public class BattleManager : MonoBehaviour
         TurnOrder.RemoveAt(0);
         TurnOrder.Insert(TurnOrder.Count, old);
     }
+    public void Attack(UnitCharacter target)
+    {
+
+    }
+    public void Defend()
+    {
+
+    }
+    public void Heal()
+    {
+        
+    }
+
 }
 
 public enum EBattleState { Wait, StartBattle,ChooseTurn , PlayerTurn, EnemyTurn,BattleWon,BattleLost }

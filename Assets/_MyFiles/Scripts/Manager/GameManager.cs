@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] UnitCharacter playerUnit;
     [SerializeField] Transform playerSpawn;
     [SerializeField] GameObject InventorySlotUI;
-
+    [SerializeField] GameObject BattleUI;
     private GameObject Player;
+
     [SerializeField] private PartyManager Party;
     [SerializeField] private BattleManager CurrentBattle;
     [SerializeField] private InventoryUIManager InventoryUI;
@@ -95,6 +96,7 @@ public class GameManager : MonoBehaviour
         InventoryUI = null;
     }
     public InventoryUIManager GetInventoryUIManager() { return InventoryUI; }
+    public GameObject GetBattleUI() { return BattleUI; }
 
 
     public void CreatePartyManager()
