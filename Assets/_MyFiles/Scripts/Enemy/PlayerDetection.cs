@@ -13,7 +13,7 @@ public class PlayerDetection : MonoBehaviour
         if (character && bringIntoBattle && character.GetUnitType() == EUnitType.Player)
         {
             Debug.Log("Detected Player...");
-            GameManager.m_Instance.CreateBattleManager(bringIntoBattle.GetEnemyPartnerList());
+            GameManager.m_Instance.CreateBattleManager(bringIntoBattle.GetPartnerList());
         }
     }
     

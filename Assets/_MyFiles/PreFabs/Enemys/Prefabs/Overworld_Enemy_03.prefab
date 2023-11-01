@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d5a06af2269d0734d872478e182c95c4,
         type: 3}
       propertyPath: m_Name
-      value: Maw J Laygo
+      value: Overworld_Enemy_03
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d5a06af2269d0734d872478e182c95c4,
         type: 3}
@@ -182,7 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756d5e884f260bc4b8f635edb4930fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPartnerList: []
+  PartnerList:
+  - {fileID: 6052590438755422178, guid: 5826f80bfba33734bb3cf91e08a9da55, type: 3}
+  - {fileID: 6052590438755422178, guid: 5826f80bfba33734bb3cf91e08a9da55, type: 3}
 --- !u!114 &32942714127926904
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        /*    GameObject playerHolder = GameManager.m_Instance.GetPlayer();
+        GameObject playerHolder = GameManager.m_Instance.GetPlayer();
             if (playerHolder != null)
             {
                 targetPos = playerHolder.transform;
@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
             {
                 Debug.LogError("Plyaer not Found!");
             }
-        */
+        
         StartCoroutine(FindPlayer());
         if (Waypoints.Length <= 0)
         {

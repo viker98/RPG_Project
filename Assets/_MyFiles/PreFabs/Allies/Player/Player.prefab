@@ -1079,6 +1079,7 @@ GameObject:
   - component: {fileID: 3613749349270977769}
   - component: {fileID: 3860670567746569896}
   - component: {fileID: 5137748826749133561}
+  - component: {fileID: 4038150287406879436}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -1346,6 +1347,22 @@ MonoBehaviour:
   UnitType: 0
   DiceNumber: 0
   CharacterInventory: {fileID: 0}
+  CharacterEquipment: {fileID: 0}
+--- !u!114 &4038150287406879436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4467458116745301450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 756d5e884f260bc4b8f635edb4930fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PartnerList:
+  - {fileID: 212877391038326103, guid: b39f8b11b196dad49a6fed9f62eaa857, type: 3}
+  - {fileID: 212877391038326103, guid: b39f8b11b196dad49a6fed9f62eaa857, type: 3}
 --- !u!1 &4582489505106889155
 GameObject:
   m_ObjectHideFlags: 0

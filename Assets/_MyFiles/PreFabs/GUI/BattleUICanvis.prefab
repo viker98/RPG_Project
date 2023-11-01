@@ -239,7 +239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PlayerUI: {fileID: 6501302567315797877}
   TransitionPanelANIM: {fileID: 1863079927160683816}
-  BattleStartPostP: {fileID: 8720703848262002240}
+  BattleStartPostP: {fileID: 0}
 --- !u!1 &6501302567315797877
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4858900513086925630}
+  - component: {fileID: 4291322405605063163}
   m_Layer: 0
   m_Name: Battle_Player
   m_TagString: Untagged
@@ -32,6 +33,22 @@ Transform:
   - {fileID: 3736948875053909433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4291322405605063163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212877391038326103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde0f1547db4dc3498b4a48d7c32da5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitType: 0
+  DiceNumber: 0
+  CharacterInventory: {fileID: 0}
+  CharacterEquipment: {fileID: 0}
 --- !u!1001 &3771472555519451730
 PrefabInstance:
   m_ObjectHideFlags: 0

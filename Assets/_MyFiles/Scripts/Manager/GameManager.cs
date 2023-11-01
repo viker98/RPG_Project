@@ -29,9 +29,7 @@ public class GameManager : MonoBehaviour
         {
             m_Instance = this;
         }
-    }
-    private void Start()
-    {
+
         if (PlayerPrefab && playerSpawn)
         {
             //spawns player
@@ -45,6 +43,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("Player or Player Spawn Not Found");
         }
+    }
+    private void Start()
+    {
+        
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

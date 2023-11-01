@@ -7,7 +7,6 @@ public class BattleUIManager : MonoBehaviour
     private BattleManager CurrentBattle;
     [SerializeField] private GameObject PlayerUI;
     [SerializeField] private Animator TransitionPanelANIM;
-    [SerializeField] private GameObject BattleStartPostP;
 
     private void Start()
     {
@@ -21,16 +20,14 @@ public class BattleUIManager : MonoBehaviour
             Debug.LogError("BattleUIManager: CurrentBattle Not Found!");
         }
     }
-    public void SetActiveBattleStartPostP(bool StatusToSet)
-    {
-        BattleStartPostP.SetActive(StatusToSet);
-    }
+    public GameObject GetPlayerUIPanel() { return  PlayerUI; }
     public void SetActivePlayerUI(bool StatusToSet)
     {
         PlayerUI.SetActive(StatusToSet);
     }
     public void PlayTransition()
     {
+        Debug.Log("playing tansistion");
         TransitionPanelANIM.SetTrigger("PlayTransition");
     }
     public void EndTransition()

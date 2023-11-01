@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6230671728400450388}
+  - component: {fileID: 3797069622356794757}
+  - component: {fileID: 2376117550272965222}
   m_Layer: 0
   m_Name: Battle_Enemy_03
   m_TagString: Untagged
@@ -32,6 +34,43 @@ Transform:
   - {fileID: 7222304064542736462}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3797069622356794757
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952430909815055391}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2376117550272965222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5952430909815055391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fde0f1547db4dc3498b4a48d7c32da5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnitType: 2
+  DiceNumber: 0
+  CharacterInventory: {fileID: 0}
+  CharacterEquipment: {fileID: 0}
 --- !u!1001 &7183380173840148389
 PrefabInstance:
   m_ObjectHideFlags: 0

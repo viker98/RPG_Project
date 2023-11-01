@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 78eb4e65850ed1548b77f851ceacb9b3,
         type: 3}
       propertyPath: m_Name
-      value: Warrok W Kurniawan
+      value: Overworld_Enemy_02
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 78eb4e65850ed1548b77f851ceacb9b3,
         type: 3}
@@ -182,7 +182,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 756d5e884f260bc4b8f635edb4930fdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EnemyPartnerList: []
+  PartnerList:
+  - {fileID: 6052590438755422178, guid: 5826f80bfba33734bb3cf91e08a9da55, type: 3}
+  - {fileID: 6052590438755422178, guid: 5826f80bfba33734bb3cf91e08a9da55, type: 3}
 --- !u!114 &7193400734273361265
 MonoBehaviour:
   m_ObjectHideFlags: 0

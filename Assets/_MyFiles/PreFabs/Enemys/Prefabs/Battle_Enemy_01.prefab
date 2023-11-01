@@ -43,7 +43,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4769155357803288098}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
+  m_Avatar: {fileID: 9000000, guid: af2a593063d22ea46b026f0bd2e25d2b, type: 3}
   m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde0f1547db4dc3498b4a48d7c32da5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitType: 0
+  UnitType: 2
   DiceNumber: 0
   CharacterInventory: {fileID: 0}
   CharacterEquipment: {fileID: 0}
