@@ -80,9 +80,9 @@ public class GameManager : MonoBehaviour
     }
     public GameObject GetPlayer() { return Player; }
 
-    public int DiceRoll()
+    public int DiceRoll(int min, int max)
     {
-        int diceRoll = Random.Range(1, 20 + 1);
+        int diceRoll = Random.Range(min, max + 1);
         return diceRoll;
     }
 

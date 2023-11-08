@@ -13,10 +13,21 @@ public class BattleManager : MonoBehaviour
     [SerializeField] private float TransitionTime = 3f;
     [SerializeField] private Transform PartyPos;
     [SerializeField] private Transform EnemyPos;
+
+    [SerializeField] private GameObject CurrentSelection;
+    [SerializeField] private EActionType actionType = EActionType.None;
+    
     private List<GameObject> EnemyList = new List<GameObject>();
-
     private BattleUIManager BattleUI;
+    private GameObject BattleCamera;
 
+   
+    public List<GameObject> GetTurnOrder() { return TurnOrder; }
+    
+    public void SetCurrentSelection(GameObject unitToSet) { CurrentSelection = unitToSet; }
+    public GameObject GetCurrentSelection() { return CurrentSelection; }
+
+    public void SetActionType(EActionType actionTypeToSet) { actionType = actionTypeToSet; }
     public EBattleState GetBattleState() { return BattleState; }
     public void SetBattleState(EBattleState stateToSet) 
     {
@@ -59,8 +70,9 @@ public class BattleManager : MonoBehaviour
 
             GameObject BattleUIClone = Instantiate(GameManager.m_Instance.GetBattleUI(), this.gameObject.transform, false);
             BattleUI = BattleUIClone.GetComponent<BattleUIManager>();
-
             BattleUI.GetPlayerUIPanel().SetActive(false);
+
+            BattleCamera = GameObject.FindGameObjectWithTag("BattleCamera");
 
             EnemyList.Clear();
             EnemyList.AddRange(enemyBattleList);
@@ -85,13 +97,17 @@ public class BattleManager : MonoBehaviour
         Time.timeScale = 1f;
         Time.fixedDeltaTime = Time.timeScale;
 
-        //move camera or load level
-        //spawn good guys and bad guys
-     //   BattleUI.SetActiveBattleStartPostP(false);
-
         yield return new WaitForSeconds(TransitionTime);
-        BattleUI.EndTransition();
 
+        BattleUI.GetPlayerUIPanel().SetActive(true);
+
+        //move camera or load level
+        GameManager.m_Instance.GetPlayer().transform.parent.gameObject.SetActive(false);
+        BattleCamera.AddComponent<Camera>();
+        BattleCamera.AddComponent<AudioListener>();
+
+        BattleUI.EndTransition();
+        Cursor.lockState = CursorLockMode.Confined;
         SetBattleState(EBattleState.ChooseTurn);
     }
     public void GatherUnits()
@@ -111,7 +127,7 @@ public class BattleManager : MonoBehaviour
     {
         foreach(GameObject unit in TurnOrder)
         {
-            unit.GetComponent<UnitCharacter>().SetDiceNumber(GameManager.m_Instance.DiceRoll());
+            unit.GetComponent<UnitCharacter>().SetDiceNumber(GameManager.m_Instance.DiceRoll(1,20));
         }
         TurnOrder = TurnOrder.OrderBy(x => x.GetComponent<UnitCharacter>().GetDiceNumber()).ToList();
         TurnOrder.Reverse();
@@ -160,11 +176,12 @@ public class BattleManager : MonoBehaviour
     }
     public void EnemyTurn()
     {
+        BattleUI.GetPlayerUIPanel().SetActive(false);
 
     }
     public void endTurn()
     {
-        BattleUI.GetPlayerUIPanel().SetActive(false);
+       // BattleUI.GetPlayerUIPanel().SetActive(false);
 
         var old = TurnOrder[0];
         TurnOrder.RemoveAt(0);
@@ -172,6 +189,8 @@ public class BattleManager : MonoBehaviour
 
         SetBattleState(EBattleState.ChooseTurn);
     }
+
+
     public void Attack(UnitCharacter target)
     {
 
@@ -185,6 +204,28 @@ public class BattleManager : MonoBehaviour
         
     }
 
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0) && CurrentSelection)
+        {
+            switch (actionType)
+            {
+                case EActionType.None:
+                    break;
+                case EActionType.Attack:
+                    TurnOrder[0].GetComponent<IBattleActions>().Attack(CurrentSelection.GetComponent<UnitCharacter>());
+                    break;
+                case EActionType.Heal:
+                    TurnOrder[0].GetComponent<IBattleActions>().Heal(CurrentSelection.GetComponent<UnitCharacter>());
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 }
 
 public enum EBattleState { Wait, StartBattle,ChooseTurn , PlayerTurn, EnemyTurn,BattleWon,BattleLost }
+
+public enum EActionType {None, Attack, Heal}

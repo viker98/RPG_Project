@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 6925345753783726475}
   - component: {fileID: -389888711176590706}
   - component: {fileID: -3567932776659307961}
+  - component: {fileID: 168093276697936139}
+  - component: {fileID: -3201619163551285548}
+  - component: {fileID: -742245353797347979}
   m_Layer: 0
   m_Name: Battle_Enemy_01
   m_TagString: Untagged
@@ -71,6 +74,51 @@ MonoBehaviour:
   DiceNumber: 0
   CharacterInventory: {fileID: 0}
   CharacterEquipment: {fileID: 0}
+--- !u!65 &168093276697936139
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769155357803288098}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3182023, y: 2.2312317, z: 1}
+  m_Center: {x: -0.013092279, y: 1.0642853, z: 0}
+--- !u!114 &-3201619163551285548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769155357803288098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41420425113461f469d2c4ea5f0992b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-742245353797347979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4769155357803288098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e49321f574022c468289d305b5ef5f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1535311864883702094
 PrefabInstance:
   m_ObjectHideFlags: 0

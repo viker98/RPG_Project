@@ -38,4 +38,13 @@ public class BattleUIManager : MonoBehaviour
     {
         if (CurrentBattle) { CurrentBattle.endTurn(); }
     }
+
+    public void AttackButton()
+    {
+        if (CurrentBattle) { CurrentBattle.SetActionType(EActionType.Attack); }
+    }
+    public void HealButton()
+    {
+        if (CurrentBattle) { CurrentBattle.SetActionType(EActionType.Heal); }
+    }
 }
