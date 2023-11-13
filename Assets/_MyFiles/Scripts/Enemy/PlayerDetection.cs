@@ -14,7 +14,7 @@ public class PlayerDetection : MonoBehaviour
         {
             Debug.Log("Detected Player...");
             GameManager.m_Instance.CreateBattleManager(bringIntoBattle.GetPartnerList());
+
         }
     }
-    
 }

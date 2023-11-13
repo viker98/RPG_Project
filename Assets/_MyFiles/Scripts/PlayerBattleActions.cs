@@ -28,9 +28,18 @@ public class PlayerBattleActions : MonoBehaviour, IBattleActions
         {
             battleManager.GetTurnOrder().Remove(targetToAttack.gameObject);
             targetToAttack.GetComponent<BattleAnimation>().GetAnimator().SetBool("IsDead", true);
+            battleManager.SetEnemyCount();
+
+            if (battleManager.getEnemyCount() <= 0)
+            {
+                battleManager.SetBattleState(EBattleState.BattleWon);
+            }
 
         }
-        battleManager.endTurn();
+        if (battleManager.GetBattleState() != EBattleState.BattleWon)
+        {
+            battleManager.endTurn();
+        }
     }
     public void Heal(UnitCharacter targetToHeal)
     {

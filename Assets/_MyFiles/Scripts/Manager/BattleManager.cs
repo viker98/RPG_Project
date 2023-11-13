@@ -26,6 +26,9 @@ public class BattleManager : MonoBehaviour
 
     List<GameObject> firstList = new List<GameObject>();
 
+    [SerializeField] private int PlayerCount = 0;
+    [SerializeField] private int EnemyCount = 0;
+
     public List<GameObject> GetTurnOrder() { return TurnOrder; }
     
     public void SetCurrentSelection(GameObject unitToSet) { CurrentSelection = unitToSet; }
@@ -52,13 +55,13 @@ public class BattleManager : MonoBehaviour
                 PlayerTurn();
                 break;
             case EBattleState.EnemyTurn:
-                EnemyTurn();
+                StartCoroutine(EnemyTurn());
                 break;
             case EBattleState.BattleWon:
-
+                StartCoroutine(BattleWon());
                 break;
             case EBattleState.BattleLost:
-
+                StartCoroutine(BattleLost());
                 break;
             default:
                 ChooseTurn();
@@ -105,6 +108,7 @@ public class BattleManager : MonoBehaviour
 
         yield return new WaitForSeconds(TransitionTime);
 
+
         BattleUI.GetPlayerUIPanel().SetActive(true);
 
         //move camera or load level
@@ -114,6 +118,7 @@ public class BattleManager : MonoBehaviour
 
         BattleUI.EndTransition();
         Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         SetBattleState(EBattleState.ChooseTurn);
     }
     public void GatherUnits()
@@ -128,6 +133,7 @@ public class BattleManager : MonoBehaviour
             firstList.Add(unitClone);
             TurnOrder.Add(unitClone);
         }
+
     }
     public List<GameObject> GetFirstList()
     {
@@ -147,47 +153,54 @@ public class BattleManager : MonoBehaviour
         PartyPos = GameObject.FindGameObjectWithTag("PartyPos").transform;
         EnemyPos = GameObject.FindGameObjectWithTag("EnemyPos").transform;
 
-        int playerCount = 0;
-        int enemyCount = 0;
+        PlayerCount = 0;
+        EnemyCount = 0;
 
         for (int iPlayer = 0; iPlayer < TurnOrder.Count; iPlayer++)
         {
             UnitCharacter unit = TurnOrder[iPlayer].GetComponent<UnitCharacter>();
             if (unit.GetUnitType() == EUnitType.Player || unit.GetUnitType() == EUnitType.Partner)
             {
-                unit.gameObject.transform.position = new Vector3(PartyPos.transform.position.x, PartyPos.transform.position.y, PartyPos.transform.position.z + (playerCount * 5f));
+                unit.gameObject.transform.position = new Vector3(PartyPos.transform.position.x, PartyPos.transform.position.y, PartyPos.transform.position.z + (PlayerCount * 5f));
                 unit.gameObject.transform.rotation = Quaternion.Euler(0, 90, 0);
-                playerCount++;
+                PlayerCount++;
             }
             else
             {
-                unit.gameObject.transform.position = new Vector3(EnemyPos.transform.position.x, EnemyPos.transform.position.y, EnemyPos.transform.position.z + (enemyCount * 5f));
+                unit.gameObject.transform.position = new Vector3(EnemyPos.transform.position.x, EnemyPos.transform.position.y, EnemyPos.transform.position.z + (EnemyCount * 5f));
                 unit.gameObject.transform.rotation = Quaternion.Euler(0, -90, 0);
-                enemyCount++;
+                EnemyCount++;
 
             }
         }
     }
+    public void SetPlayerCount() { PlayerCount--; }
+    public void SetEnemyCount() {  EnemyCount--; }
+    public int getPlayerCount() { return PlayerCount; }
+    public int getEnemyCount() { return EnemyCount; }
     public void ChooseTurn()
     {
         UnitCharacter currentTurn = TurnOrder[0].GetComponent<UnitCharacter>();
+        Debug.Log(BattleState.ToString());
         if (currentTurn.GetUnitType() == EUnitType.Player || currentTurn.GetUnitType() == EUnitType.Partner)
         {
-            SetBattleState(EBattleState.PlayerTurn);
+           SetBattleState(EBattleState.PlayerTurn);
         }
         else
         {
-            SetBattleState(EBattleState.EnemyTurn);
-        }
+           SetBattleState(EBattleState.EnemyTurn);
+        }        
     }
     public void PlayerTurn()
     {
         BattleUI.GetPlayerUIPanel().SetActive(true);
     }
-    public void EnemyTurn()
+    public IEnumerator EnemyTurn()
     {
-        actionType = EActionType.None;
         BattleUI.GetPlayerUIPanel().SetActive(false);
+
+        yield return new WaitForSeconds(1.5f);
+        actionType = EActionType.None;
 
         int ranRoll = GameManager.m_Instance.DiceRoll(1, 2);
         int ranRoll2 = GameManager.m_Instance.DiceRoll(1, 2);
@@ -216,8 +229,7 @@ public class BattleManager : MonoBehaviour
                 enemySelection = firstList[3];
             }
             TurnOrder[0].GetComponent<IBattleActions>().Heal(enemySelection.GetComponent<UnitCharacter>());
-        }
-
+        }     
     }
     public void endTurn()
     {
@@ -230,20 +242,46 @@ public class BattleManager : MonoBehaviour
         SetBattleState(EBattleState.ChooseTurn);
     }
 
-
- /*   public void Attack(UnitCharacter target)
+    public IEnumerator BattleWon()
     {
-
-    }
-    public void Defend()
-    {
-
-    }
-    public void Heal()
-    {
+        Debug.Log("Battle Won");
+        BattleUI.PlayTransition();
+        BattleUI.GetPlayerUIPanel().SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        BattleUI.EndTransition();
+        BattleUI.GetWinEndScreen().SetActive(true);
         
+
+
+        yield return null;
     }
- */
+
+    public IEnumerator BattleLost()
+    {
+        Debug.Log("Battle Loss");
+        BattleUI.PlayTransition();
+        BattleUI.GetPlayerUIPanel().SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        BattleUI.EndTransition();
+        BattleUI.GetLossEndScreen().SetActive(true);
+
+        yield return null;
+    }
+
+
+    /*   public void Attack(UnitCharacter target)
+       {
+
+       }
+       public void Defend()
+       {
+
+       }
+       public void Heal()
+       {
+
+       }
+    */
     public List<GameObject> GetEnemyList()
     {
         return EnemyList;

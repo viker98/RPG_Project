@@ -8,6 +8,8 @@ public class BattleUIManager : MonoBehaviour
     private BattleManager CurrentBattle;
     [SerializeField] private GameObject PlayerUI;
     [SerializeField] private Animator TransitionPanelANIM;
+    [SerializeField] private GameObject BattleWonScreen;
+    [SerializeField] private GameObject BattleLostScreen;
 
     [SerializeField] private Slider P1Slider;
     [SerializeField] private Slider P2Slider;
@@ -56,16 +58,19 @@ public class BattleUIManager : MonoBehaviour
     {
         if (CurrentBattle) { CurrentBattle.SetActionType(EActionType.Heal); }
     }
-  /*  public void SetHealthBars()
+    public GameObject GetWinEndScreen() { return BattleWonScreen; }
+    public GameObject GetLossEndScreen() { return BattleLostScreen; }
+    
+
+    public void ReturnToOverworld()
     {
-        List<GameObject> turn = GameManager.m_Instance.GetPlayer().GetComponent<BringIntoBattle>().GetPartnerList();
-        P1Slider.value = turn[0].gameObject.GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
-        P1Slider.value = turn[1].gameObject.GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
-        turn = CurrentBattle.GetEnemyList();
-        E1Slider.value = turn[0].gameObject.GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
-        E2Slider.value = turn[1].gameObject.GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
+        GameManager.m_Instance.GetPlayer().transform.parent.gameObject.SetActive(false);
+        
     }
-  */
+    public void EndGame()
+    {
+        Application.Quit();
+    }
     private void Update()
     {
         if (P1Slider.value <= 0)
@@ -76,6 +81,7 @@ public class BattleUIManager : MonoBehaviour
         {
             P1Slider.value = turn[0].GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
         }
+
         if (P2Slider.value <= 0)
         {
             P2Slider.value = 0;
@@ -84,6 +90,7 @@ public class BattleUIManager : MonoBehaviour
         {
             P2Slider.value = turn[1].GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
         }
+        
         if (E1Slider.value <= 0)
         {
             E1Slider.value = 0;
@@ -92,6 +99,7 @@ public class BattleUIManager : MonoBehaviour
         {
             E1Slider.value = turn[2].GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
         }
+
         if (E2Slider.value <= 0)
         {
             E2Slider.value = 0;
