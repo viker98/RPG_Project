@@ -18,11 +18,18 @@ public class PlayerBattleActions : MonoBehaviour, IBattleActions
         attackersPower = battleManager.GetTurnOrder()[0].GetComponent<UnitCharacter>().GetCharacterStats().GetStat(EStatType.Power).GetBaseValue();
         reciversHealth = targetToAttack.GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
 
+        battleManager.GetTurnOrder()[0].GetComponent<BattleAnimation>().GetAnimator().SetTrigger("IsPunching");
+
         reciversHealth -= attackersPower + GameManager.m_Instance.DiceRoll(1, 20);
 
         targetToAttack.GetCharacterStats().GetStat(EStatType.Health).SetBaseValue(reciversHealth);
 
+        if(targetToAttack.GetCharacterStats().GetStat(EStatType.Health).GetBaseValue() <= 0)
+        {
+            battleManager.GetTurnOrder().Remove(targetToAttack.gameObject);
+            targetToAttack.GetComponent<BattleAnimation>().GetAnimator().SetBool("IsDead", true);
 
+        }
         battleManager.endTurn();
     }
     public void Heal(UnitCharacter targetToHeal)
@@ -33,6 +40,7 @@ public class PlayerBattleActions : MonoBehaviour, IBattleActions
         reciversHealth = targetToHeal.GetCharacterStats().GetStat(EStatType.Health).GetBaseValue();
         reciversHealth += 10;
         targetToHeal.GetCharacterStats().GetStat(EStatType.Health).SetBaseValue(reciversHealth);
+        battleManager.GetTurnOrder()[0].GetComponent<BattleAnimation>().GetAnimator().SetTrigger("IsHealing");
         battleManager.endTurn();    
     }
 }

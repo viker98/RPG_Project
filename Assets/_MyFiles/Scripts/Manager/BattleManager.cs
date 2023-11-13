@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Linq;
 using System.IO;
 using Unity.Mathematics;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -21,7 +22,10 @@ public class BattleManager : MonoBehaviour
     private BattleUIManager BattleUI;
     private GameObject BattleCamera;
 
-   
+    [SerializeField] GameObject currentTurnMarker;
+
+    List<GameObject> firstList = new List<GameObject>();
+
     public List<GameObject> GetTurnOrder() { return TurnOrder; }
     
     public void SetCurrentSelection(GameObject unitToSet) { CurrentSelection = unitToSet; }
@@ -81,6 +85,8 @@ public class BattleManager : MonoBehaviour
             OrderByDiceRoll();
             PlaceUnitsInBattle();
 
+            currentTurnMarker = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            currentTurnMarker.transform.localScale = new Vector3(.25f,.25f,.25f);
             //Spawn Enemies and players at locations
 
             SetBattleState(EBattleState.StartBattle);
@@ -119,10 +125,14 @@ public class BattleManager : MonoBehaviour
         foreach (GameObject unit in tempList)
         {
             GameObject unitClone = Instantiate(unit, new Vector3(0f, -1000f, 0f), this.transform.rotation, this.transform);
+            firstList.Add(unitClone);
             TurnOrder.Add(unitClone);
         }
     }
-
+    public List<GameObject> GetFirstList()
+    {
+        return firstList;
+    }
     public void OrderByDiceRoll()
     {
         foreach(GameObject unit in TurnOrder)
@@ -176,7 +186,37 @@ public class BattleManager : MonoBehaviour
     }
     public void EnemyTurn()
     {
+        actionType = EActionType.None;
         BattleUI.GetPlayerUIPanel().SetActive(false);
+
+        int ranRoll = GameManager.m_Instance.DiceRoll(1, 2);
+        int ranRoll2 = GameManager.m_Instance.DiceRoll(1, 2);
+        GameObject enemySelection = null;
+        
+        if (ranRoll == 1)
+        {
+            if (ranRoll2 == 1)
+            {
+                enemySelection = firstList[0];
+            }
+            if (ranRoll2 == 2)
+            {
+                enemySelection = firstList[1];
+            }
+            TurnOrder[0].GetComponent<IBattleActions>().Attack(enemySelection.GetComponent<UnitCharacter>());
+        }
+        if (ranRoll == 2)
+        {
+            if (ranRoll2 == 1)
+            {
+                enemySelection = firstList[2];
+            }
+            if (ranRoll2 == 2)
+            {
+                enemySelection = firstList[3];
+            }
+            TurnOrder[0].GetComponent<IBattleActions>().Heal(enemySelection.GetComponent<UnitCharacter>());
+        }
 
     }
     public void endTurn()
@@ -191,7 +231,7 @@ public class BattleManager : MonoBehaviour
     }
 
 
-    public void Attack(UnitCharacter target)
+ /*   public void Attack(UnitCharacter target)
     {
 
     }
@@ -203,7 +243,11 @@ public class BattleManager : MonoBehaviour
     {
         
     }
-
+ */
+    public List<GameObject> GetEnemyList()
+    {
+        return EnemyList;
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(0) && CurrentSelection)
@@ -222,6 +266,7 @@ public class BattleManager : MonoBehaviour
                     break;
             }
         }
+        currentTurnMarker.transform.position = TurnOrder[0].gameObject.transform.position;
     }
 
 }
