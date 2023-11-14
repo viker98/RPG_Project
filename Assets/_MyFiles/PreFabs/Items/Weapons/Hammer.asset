@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Hammer
   m_EditorClassIdentifier: 
   m_itemName: Hammer
-  m_itemIcon: {fileID: 0}
+  m_itemIcon: {fileID: 21300000, guid: 0198218525425d546b5132f3884567d6, type: 3}
+  EquipmentDiscription: 

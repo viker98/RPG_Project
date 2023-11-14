@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Arm Armor
   m_EditorClassIdentifier: 
   m_itemName: Arm Armor
-  m_itemIcon: {fileID: 0}
+  m_itemIcon: {fileID: 21300000, guid: 70a77abda853dd941a0c8debf1de9b04, type: 3}
+  EquipmentDiscription: 

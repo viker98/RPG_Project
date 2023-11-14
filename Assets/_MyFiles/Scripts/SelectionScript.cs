@@ -33,9 +33,4 @@ public class SelectionScript : MonoBehaviour
             Marker.SetActive(false);
         }
     }
-
-    void Update()
-    {
-
-    }
 }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: 
   m_itemName: Bow
-  m_itemIcon: {fileID: 0}
+  m_itemIcon: {fileID: 21300000, guid: 5d7061fc7da05ce44add317708ec7215, type: 3}
+  EquipmentDiscription: 

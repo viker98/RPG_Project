@@ -139,6 +139,10 @@ public class BattleManager : MonoBehaviour
     {
         return firstList;
     }
+    public GameObject GetBattleCamera()
+    {
+        return BattleCamera;
+    }
     public void OrderByDiceRoll()
     {
         foreach(GameObject unit in TurnOrder)
@@ -267,21 +271,6 @@ public class BattleManager : MonoBehaviour
 
         yield return null;
     }
-
-
-    /*   public void Attack(UnitCharacter target)
-       {
-
-       }
-       public void Defend()
-       {
-
-       }
-       public void Heal()
-       {
-
-       }
-    */
     public List<GameObject> GetEnemyList()
     {
         return EnemyList;

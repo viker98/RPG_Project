@@ -7,10 +7,25 @@ public class InventoryUIManager : MonoBehaviour
 {
     [SerializeField] Transform InventoryGRP;
     ItemSlot[] ItemSlots;
+    bool InventoryClosed = false;
     private void Start()
     {
         InventoryGRP = GameObject.FindGameObjectWithTag("InventoryGRP").transform;
         ItemSlots = InventoryGRP.GetComponentsInChildren<ItemSlot>();
+    }
+    private void Update()
+    {        
+        if (Input.GetKeyDown(KeyCode.I) && !InventoryClosed)
+        {
+            InventoryGRP.gameObject.SetActive(false);
+            InventoryClosed = true;
+        } 
+        else if (Input.GetKeyDown(KeyCode.I) && InventoryClosed)
+        {
+            InventoryGRP.gameObject.SetActive(true);
+            InventoryClosed = false;
+        }
+        
     }
     public void UpdateUI(List<Item> itemsToUpdate)
     {

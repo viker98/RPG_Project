@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class BattleUIManager : MonoBehaviour
@@ -64,12 +66,26 @@ public class BattleUIManager : MonoBehaviour
 
     public void ReturnToOverworld()
     {
-        GameManager.m_Instance.GetPlayer().transform.parent.gameObject.SetActive(false);
-        
+
+        GameManager.m_Instance.GetPlayer().transform.parent.gameObject.SetActive(true);
+        foreach (GameObject BattlePrefabs in CurrentBattle.GetFirstList())
+        {
+            Destroy(BattlePrefabs);
+        }
+        Destroy(GameManager.m_Instance.GetBattleManager());
+        Destroy(CurrentBattle.GetBattleCamera().GetComponent<Camera>());
+        Destroy(CurrentBattle.GetBattleCamera().GetComponent<AudioListener>());
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        Destroy(this.gameObject); 
     }
     public void EndGame()
     {
         Application.Quit();
+    }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
     private void Update()
     {

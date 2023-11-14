@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: Dagger
   m_EditorClassIdentifier: 
   m_itemName: Dagger
-  m_itemIcon: {fileID: 0}
+  m_itemIcon: {fileID: 21300000, guid: 3f5b302f67e2fc24ba1ff12ffd0da746, type: 3}
+  EquipmentDiscription: 
